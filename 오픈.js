@@ -1,0 +1,34 @@
+process.on('exit',function(){
+    console.log(종료);
+});
+process.on('exit',function(){
+    console.log(종료1);
+});
+process.on('exit',function(){
+    console.log(종료2);
+});
+process.on('exit',function(){
+    console.log(종료3);
+});
+process.on('exit',function(){
+    console.log(종료4);
+});
+process.on('exit',function(){
+    console.log(종료5);
+});
+process.on('exit',function(){
+    console.log(종료6);
+});
+process.on('exit',function(){
+    console.log(종료7);
+});
+process.on('exit',function(){
+    console.log(종료8);
+});
+process.on('exit',function(){
+    console.log(종료9);
+});
+process.on('exit',function(){
+    console.log(종료10);
+});
+

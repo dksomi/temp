@@ -1,0 +1,12 @@
+<input type="text" />
+<button>클릭</button>
+<script>
+  //let num = prompt("숫자 입력");
+  //alert(num + 7);
+
+  let txt = document.querySelector("input");
+  let btn = document.querySelector("button");
+  btn.addEventListener("click", function () {
+    alert(txt.value + 7);
+  });
+</script>
