@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #slide {
+        width: 150px;
+        height: 100px;
+        border: 1px solid yellow;
+        overflow: hidden;
+        position: relative;
+      }
+      #slide > .total-slide {
+        display: flex;
+        width: 450px;
+        position: absolute;
+      }
+      #slide > .total-slide > div {
+        width: 150px;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        font-size: 25px;
+        font-weight: bold;
+      }
+      #slide > .total-slide > div:nth-child(1) {
+        background: red;
+      }
+      #slide > .total-slide > div:nth-child(2) {
+        background: green;
+      }
+      #slide > .total-slide > div:nth-child(3) {
+        background: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="slide">
+      <div class="total-slide">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      </div>
+    </div>
+    <script>
+      let totalSlide = document.querySelector(".total-slide");
+      totalSlide.style.left = 0;
+      totalSlide.style.transition = "1s";
+      setTimeout(function () {
+        totalSlide.style.left = "-450px";
+
+        totalSlide.style.left = "-300px";
+      }, 5000);
+
+      // console.dir((totalSlide.style.left = "-150px"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #slide {
+        width: 150px;
+        height: 100px;
+        border: 1px solid yellow;
+        overflow: hidden;
+        position: relative;
+      }
+      #slide > .total-slide {
+        display: flex;
+        width: 450px;
+        position: absolute;
+        left: 0;
+        transition: 1s;
+      }
+      #slide > .total-slide > div {
+        width: 150px;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        font-size: 25px;
+        font-weight: bold;
+      }
+      #slide > .total-slide > div:nth-child(1) {
+        background: red;
+      }
+      #slide > .total-slide > div:nth-child(2) {
+        background: green;
+      }
+      #slide > .total-slide > div:nth-child(3) {
+        background: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="slide">
+      <div class="total-slide">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      </div>
+    </div>
+    <div id="time"></div>
+    <script>
+      let totalSlide = document.querySelector(".total-slide");
+      let leftValue = 0;
+      let symbol = 1;
+
+      setInterval(function () {
+        leftValue -= symbol * 150;
+        totalSlide.style.left = leftValue + "px";
+
+        if (leftValue == -300) {
+          symbol = -1;
+        } else if (leftValue == 0) {
+          symbol = 1;
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
