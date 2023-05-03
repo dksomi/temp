@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <fieldset>
+      <legend>학생등록</legend>
+
+      <div>
+        <div>
+          <label for="stName">이름</label>
+          <input type="text" id="stName" value="" />
+        </div>
+        <div>
+          <label for="stAge">나이</label>
+          <input type="number" id="stAge" value="" />
+          <button id="del">삭제</button>
+        </div>
+        <div>
+          <label for="stNum">전화번호</label>
+          <input
+            type="number"
+            id="stNum"
+            value=""
+            placeholder="'-' 없이 입력하세요"
+          />
+          <button id="del">삭제</button>
+        </div>
+        <div>
+          <button id="register">등록</button>
+        </div>
+      </div>
+      <div id="list"></div>
+    </fieldset>
+    <script>
+      let age = document.querySelector("#stAge");
+      let button = document.querySelector("#register");
+      let name = document.querySelector("#stName");
+      let students = [];
+      let list = document.querySelector("#list");
+      let num = document.querySelector("#stNum");
+      let enter = document.querySelector("input");
+      let remove = document.querySelector("#del");
+
+      //삭제버튼 -> 나이값 지우기
+      remove.onclick = function () {
+        age.value = "";
+      };
+
+      remove.onclick = function () {
+        num.value = "";
+      };
+
+      // 엔터 -> keydown
+      enter.addEventListener("keydown", function (event) {
+        if (event.keyCode === 13) {
+          document.getElementById("stAge").focus();
+        }
+      });
+      stAge.addEventListener("keydown", function (event) {
+        if (event.keyCode === 13) {
+          document.getElementById("stNum").focus();
+        }
+      });
+      // 요소 아래에 값 표시
+      button.onclick = function () {
+        // console.log(name.value + ":" + age.value);
+        let student = makeStudent(name.value, age.value, num.value);
+        // console.log(student);
+        students.push(student);
+        // console.log(student);
+        // list.innerHTML += `<div>${student.name}/${student.age}</div>`;
+
+        showList();
+      };
+
+      function makeStudent(name, age, num) {
+        return {
+          name,
+          age,
+          num,
+        };
+      }
+      function showList() {
+        list.innerHTML = "";
+        for (let student in students) {
+          list.insertAdjacentHTML(
+            "beforeend",
+            `<div>${students[student].name}/${students[student].age}/${students[student].num}</div>`
+          ); //요소의 마지막
+          console.log(students[student]);
+        }
+      }
+
+      name.onkeyup = function () {
+        console.log(name.value);
+      };
+    </script>
+  </body>
+</html>
+
+//1. 전화번호 추가 2. 이름에서 Enter 나이로 커서이동, 나이에서 Enter 전화로
+커서이동, 전화에서 Enter 객체 추가 3. 리스트에 전화 옆에 삭제 버튼을 만들고
+누르면 해당하는 요소 삭제

@@ -5,7 +5,7 @@ console.log("Hello World");
 
 window.addEventListener("load",function()){
     구문
-});
+}); 추가
 window.onload = function(){
 
 };

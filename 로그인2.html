@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <fieldset>
+      <legend>학생등록</legend>
+      <label for="stName">이름</label>
+      <input type="text" id="stName" />
+      <label for="stAge">나이</label>
+      <input type="text" id="stAge" />
+      <button>등록</button>
+    </fieldset>
+    <div id="list"></div>
+    <script>
+      let list = document.querySelector("#list");
+      let arrStudent = [];
+      let btn = document.querySelector("button");
+      btn.onclick = function () {
+        let name = document.querySelector("#stName").value;
+        let age = document.querySelector("#stAge").value;
+
+        arrStudent.push(makeStudent(name, age));
+
+        showList(arrStudent);
+      };
+
+      function makeStudent(name, age) {
+        return { name, age };
+      }
+
+      function showList(students) {
+        list.innerHTML = "";
+        for (let index in students) {
+          list.insertAdjacentHTML(
+            "beforeend",
+            `<div>${students[index]["name"]} ${students[index].age}</div>`
+          );
+        }
+      }
+    </script>
+  </body>
+</html>

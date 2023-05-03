@@ -1,28 +1,28 @@
 //function add(a , b){
     //return a+b;
 //}
-일반함수
-function 함수명(인자, ...) {}
-함수명(인자, ...)
+// 일반함수
+// function 함수명(인자, ...) {}
+// 함수명(인자, ...)
 
-함수 표현식
-let 변수명 = function(인자, ...) {}
-변수명(인자, ...)
+// 함수 표현식
+// let 변수명 = function(인자, ...) {}
+// 변수명(인자, ...)
 
-화살표 함수
-let  변수명 = (인자, ...) => {}
-변수명(인자, ...)
+// 화살표 함수
+// let  변수명 = (인자, ...) => {}
+// 변수명(인자, ...)
 
-즉시실행 함수
-(function(인자, ...) {})();
+// 즉시실행 함수
+// (function(인자, ...) {})();
 
-콜백함수 - 인자로 함수를 사용
+// 콜백함수 - 인자로 함수를 사용
 
-let ddd= function(a,b)
-{
-    return a+b;
-};
-console.log(add(7,8));
+// let ddd= function(a,b)
+// {
+//     return a+b;
+// };
+// console.log(add(7,8));
 // function add(a, b) { //함수 정의할 때 인수 = parameter, 매개변수
 //   return a + b;
 // }
