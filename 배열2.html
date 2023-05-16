@@ -1,0 +1,75 @@
+<style>
+  table,
+  tr,
+  th,
+  td {
+    border: 1px solid;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    padding: 15px 25px;
+  }
+</style>
+<body></body>
+<script>
+  let n = [
+    { name: "홍길동", age: 21 },
+    { name: "고길동", age: 4 },
+    { name: "마길동", age: 56 },
+  ];
+  // 배열을 body에 테이블로 표시
+  // 이름, 나이 필드를 누르면 소팅
+  let body = document.body;
+  let flagName = false;
+  let flagAge = false;
+  let thead =
+    '<table><tr><th onclick="sortName();">이름</th><th onclick="sortAge();">나이</th><tr>';
+  let tfoot = "</table>";
+  let tbody = "";
+
+  function showTable() {
+    body.innerHTML = "";
+    tbody = "";
+    n.forEach(function (item, index, array) {
+      tbody += "<tr>";
+      tbody += "<td>" + item.name + "</td>";
+      tbody += "<td>" + item.age + "</td>";
+      tbody += "</tr>";
+    });
+    body.insertAdjacentHTML("afterbegin", thead + tbody + tfoot);
+  }
+
+  function sortName() {
+    flagName = !flagName;
+    n.sort(function (a, b) {
+      if (flagName) {
+        return a.name == b.name ? 0 : a.name > b.name ? 1 : -1;
+      } else {
+        return a.name == b.name ? 0 : a.name > b.name ? -1 : 1;
+      }
+    });
+    showTable();
+  }
+
+  function sortAge() {
+    flagAge = !flagAge;
+    n.sort(function (a, b) {
+      if (flagAge) return a.age - b.age;
+      else return b.age - a.age;
+    });
+    showTable();
+  }
+
+  showTable();
+</script>
+<body></body>
+<script>
+  let n = [
+    { name: "홍길동", age: 21 },
+    { name: "고길동", age: 4 },
+    { name: "마길동", age: 56 },
+  ];
+  // 배열을 body에 테이블로 표시
+  // 이름, 나이 필드를 누르면 소팅
+</script>

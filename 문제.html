@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 1. 자식들을 하나로 합치는 부모 -->
+    <!-- 2. 크게 행/열로 분할 -->
+    <!-- float, flex -->
+    <style>
+      .marAuto {
+        margin: 0 auto;
+      }
+      .brRadius5 {
+        border-radius: 5px;
+      }
+      .totalWidth {
+        width: 960px;
+      }
+      .oneWidth {
+        width: 236.25px;
+      }
+      .threeWidth {
+        width: 718.75px;
+        /* width: calc(100% - 236.25px); */
+      }
+      .divHeight {
+        height: 100px;
+      }
+      .twoHeight {
+        height: 205px;
+      }
+      .bgcolor {
+        background-color: gray;
+      }
+      .marBottom {
+        margin-bottom: 5px;
+      }
+      .marLeft {
+        margin-left: 5px;
+      }
+      .float-left {
+        float: left;
+      }
+      .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap" class="totalWidth marAuto">
+      <div
+        class="header totalWidth bgcolor divHeight brRadius5 marBottom"
+      ></div>
+      <div class="main clearfix">
+        <div class="main-left float-left">
+          <div class="oneWidth divHeight bgcolor brRadius5 marBottom"></div>
+          <div class="oneWidth divHeight bgcolor brRadius5 marBottom"></div>
+          <div class="oneWidth twoHeight bgcolor brRadius5"></div>
+        </div>
+        <div class="main-right float-left marLeft marBottom">
+          <div class="main-right-top marBottom clearfix">
+            <div class="float-left">
+              <div class="oneWidth divHeight bgcolor brRadius5 marBottom"></div>
+              <div class="oneWidth divHeight bgcolor brRadius5 marBottom"></div>
+              <div class="oneWidth divHeight bgcolor brRadius5"></div>
+            </div>
+            <div class="float-left marLeft">
+              <div class="oneWidth twoHeight bgcolor brRadius5 marBottom"></div>
+              <div class="oneWidth divHeight bgcolor brRadius5"></div>
+            </div>
+            <div class="float-left marLeft">
+              <div class="oneWidth divHeight bgcolor brRadius5 marBottom"></div>
+              <div class="oneWidth twoHeight bgcolor brRadius5"></div>
+            </div>
+          </div>
+          <div
+            class="main-right-bottom threeWidth bgcolor brRadius5 divHeight"
+          ></div>
+        </div>
+      </div>
+      <div
+        class="footer totalWidth bgcolor divHeight brRadius5 marBottom"
+      ></div>
+    </div>
+  </body>
+</html>

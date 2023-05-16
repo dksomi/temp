@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 자동으로 생성 -->
+    <style>
+      #setBg {
+        display: flex;
+      }
+      #setBg > div {
+        width: 50px;
+        height: 50px;
+      }
+      #setBg > div:first-child {
+        background-color: red;
+      }
+      #setBg > div:nth-child(2) {
+        background-color: green;
+      }
+      #setBg > div:last-child {
+        background-color: blue;
+      }
+
+      #ball {
+        width: 50px;
+        height: 50px;
+        background-color: yellow;
+        border-radius: 50%;
+        border: 1px solid black;
+        position: absolute;
+      }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      window.onload = function () {
+        let socket = io.connect(); //소켓 서버 연결
+
+        let display = document.querySelector("#display");
+
+        socket.on("echo", function (data) {
+          let li = `<li>${data.uname}: ${data.msg} ${data.now}</li>`;
+          display.insertAdjacentHTML("beforeend", li);
+        });
+
+        let button = document.querySelector("button");
+        let uname = document.querySelector("#uname");
+        let msg = document.querySelector("#msg");
+        button.onclick = function () {
+          //emit은 이벤트 발동
+          let message = {
+            uname: uname.value,
+            msg: msg.value,
+            now: new Date().toUTCString(),
+          };
+
+          socket.emit("send", message);
+        };
+
+        let setBg = document.querySelector("#setBg");
+        setBg.onclick = function (e) {
+          let color = e.target.dataset.color;
+          socket.emit("setBg", color);
+        };
+
+        socket.on("setBg", function (data) {
+          document.body.style.background = data;
+        });
+
+        let ball = document.querySelector("#ball");
+        let ballTop = parseInt(getComputedStyle(ball)["top"]);
+        let ballLeft = parseInt(getComputedStyle(ball)["left"]);
+
+        window.onkeydown = function (e) {
+          // console.log(e.keyCode);
+          switch (e.keyCode) {
+            case 37:
+              socket.emit("left", --ballLeft);
+              break;
+            case 38:
+              socket.emit("up", --ballTop);
+              break;
+            case 39:
+              socket.emit("left", ++ballLeft);
+              break;
+            case 40:
+              socket.emit("up", ++ballTop);
+              break;
+          }
+        };
+        socket.on("up", function (data) {
+          ball.style.top = data + "px";
+        });
+        socket.on("left", function (data) {
+          ball.style.left = data + "px";
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <ul id="display"></ul>
+    <input type="text" id="uname" />
+    <input type="text" id="msg" />
+    <button>전송</button>
+    <div id="setBg">
+      <div data-color="red"></div>
+      <div data-color="green"></div>
+      <div data-color="blue"></div>
+    </div>
+
+    <div id="ball"></div>
+  </body>
+</html>

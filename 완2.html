@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+      }
+
+      #container {
+        width: 100%;
+        height: 100%;
+      }
+      .play-area {
+        width: 100%;
+        height: 100%;
+        padding: 20px 10vw;
+        box-sizing: border-box;
+        min-width: 1280px;
+      }
+      .play-area-top {
+        width: 100%;
+        height: 450px;
+        color: #fff;
+      }
+      .play-area-bottom {
+        width: 100%;
+        height: 450px;
+        background-color: #e9e9e9;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+      .play-area-bottom p {
+        font-weight: 700;
+        font-size: 20px;
+      }
+
+      #text {
+        width: 100%;
+        height: 120px;
+        line-height: 120px;
+        background-color: dodgerblue;
+        overflow: hidden;
+        margin-bottom: 15px;
+      }
+      #text > span {
+        height: 50px;
+      }
+      .button-container {
+        width: 100%;
+        height: 320px;
+      }
+      .border-rad5 {
+        border-radius: 5px;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .show {
+        width: 320px;
+        height: 320px;
+      }
+      .border-solid {
+        border: 1px solid black;
+      }
+      .selected {
+        transition: 0.2s ease;
+        cursor: pointer;
+      }
+      .selected:hover {
+        transform: scale(1.2);
+      }
+
+      .flex-row {
+        display: flex;
+        flex-direction: row;
+      }
+      .flex-column {
+        display: flex;
+        flex-direction: column;
+      }
+      .big-text {
+        font-size: 30px;
+        font-weight: 700;
+      }
+      .small-text {
+        font-size: 18px;
+        font-weight: 300;
+      }
+      .align-ceter {
+        justify-content: center;
+        align-items: center;
+      }
+      .margin-right5 {
+        margin-right: 5px;
+      }
+      #show-result {
+        text-align: center;
+        line-height: 320px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div class="play-area flex-column align-ceter">
+        <div
+          class="play-area-top border-rad5 flex-column text-center align-ceter"
+        >
+          <div id="text" class="flex-column">
+            <span class="big-text">가위 바위 보!</span>
+          </div>
+          <div class="button-container flex-row align-ceter">
+            <div id="sissors" class="show selected margin-right5">
+              <img
+                src="https://lh3.googleusercontent.com/u/0/d/1UgZrqP_zmnAC85oMX6UOGiLBXPa1_kvA=w1207-h704-iv1"
+                alt=""
+              />
+            </div>
+            <div id="rock" class="show selected margin-right5">
+              <img
+                src="https://lh3.googleusercontent.com/u/0/d/1AUHJElfT4_UUNMDUw-7ERygBTcuEyFoR=w1207-h465-iv1"
+                alt=""
+              />
+            </div>
+            <div id="paper" class="show selected">
+              <img
+                src="https://lh3.googleusercontent.com/u/0/d/1Hm6g_OvdQu5jeZ5s_YhV_ASgNjMYL7od=w1207-h465-iv1"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+        <div class="play-area-bottom flex-row">
+          <div>
+            <p class="text-center">당신</p>
+            <div class="show border-solid"><img src="" id="my-choice" /></div>
+          </div>
+          <div>
+            <p class="text-center">결과</p>
+            <div id="show-result" class="show border-solid big-text"></div>
+          </div>
+          <div>
+            <p class="text-center">컴퓨터</p>
+            <div class="show border-solid">
+              <img src="" alt="" id="com-choice" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let sissorsBtn = document.querySelector("#sissors");
+      let rockBtn = document.querySelector("#rock");
+      let paperBtn = document.querySelector("#paper");
+      let myImg = document.querySelector("#my-choice");
+      let comImg = document.querySelector("#com-choice");
+      let result = document.querySelector("#show-result");
+
+      sissorsBtn.addEventListener("click", () => {
+        let user = 1;
+        let comChoice = getRandomIntInclusive(1, 3);
+        myImg.src = getImgSource(user);
+        comImg.src = getImgSource(comChoice);
+        result.innerText = battleResult(user, comChoice);
+      });
+      rockBtn.addEventListener("click", () => {
+        let user = 2;
+        let comChoice = getRandomIntInclusive(1, 3);
+        myImg.src = getImgSource(user);
+        comImg.src = getImgSource(comChoice);
+        result.innerText = battleResult(user, comChoice);
+      });
+      paperBtn.addEventListener("click", () => {
+        let user = 3;
+        let comChoice = getRandomIntInclusive(1, 3);
+        myImg.src = getImgSource(user);
+        comImg.src = getImgSource(comChoice);
+        result.innerText = battleResult(user, comChoice);
+      });
+
+      function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //최댓값도 포함, 최솟값도 포함
+      }
+
+      function battleResult(user1, user2) {
+        if (user1 == user2) {
+          return "무";
+        } else if (user2 - user1 == 1 || user2 - user1 == -2) {
+          return "패";
+        } else {
+          return "승리";
+        }
+      }
+
+      function getImgSource(param) {
+        switch (param) {
+          case 1:
+            return "https://lh3.googleusercontent.com/u/0/d/1Hm6g_OvdQu5jeZ5s_YhV_ASgNjMYL7od=w1207-h465-iv1";
+          case 2:
+            return "https://lh3.googleusercontent.com/u/0/d/1AUHJElfT4_UUNMDUw-7ERygBTcuEyFoR=w1207-h465-iv1";
+          case 3:
+            return "https://lh3.googleusercontent.com/u/0/d/1UgZrqP_zmnAC85oMX6UOGiLBXPa1_kvA=w1207-h704-iv1";
+        }
+      }
+    </script>
+  </body>
+</html>

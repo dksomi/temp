@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #rps {
+        width: 500px;
+        border: 1px solid;
+      }
+      #rps > div {
+        overflow: hidden;
+      }
+      /* #rps > div:nth-child(2) {
+      height: 25px;
+    } */
+      #rps > div > div {
+        float: left;
+        width: calc(100% / 3);
+      }
+      #rps > div:first-child > div {
+        height: 100px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 65%;
+      }
+      #rps > div:first-child > div:nth-child(2) {
+        text-align: center;
+        line-height: 100px;
+        font-size: 75px;
+      }
+      #rps > div:nth-child(2) > div {
+        text-align: center;
+        height: 25px;
+        line-height: 25px;
+      }
+      #man {
+        transform: rotate(90deg) scaleX(-1);
+      }
+
+      #com {
+        transform: rotate(-90deg);
+      }
+      #btnArea {
+        border-top: 1px solid;
+      }
+      #btnArea > div {
+        height: 100px;
+        width: calc((100% - 2px) / 3) !important;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 50%;
+        cursor: pointer;
+      }
+      #btnArea > div:first-child,
+      #btnArea > div:nth-child(2) {
+        border-right: 1px solid;
+      }
+      #btnArea > div:first-child {
+        background-image: url(https://feelstory.com/gnu/nori/img/1_on.png);
+      }
+      #btnArea > div:nth-child(2) {
+        background-image: url(https://feelstory.com/gnu/nori/img/2_on.png);
+      }
+      #btnArea > div:last-child {
+        background-image: url(https://feelstory.com/gnu/nori/img/3_on.png);
+      }
+    </style>
+    <script>
+      let arrRps = [];
+      // 1 - 가위, 2 - 바위, 3 - 보
+      function Rps(type, url, name) {
+        this.type = type;
+        this.url = url;
+        this.name = name;
+      }
+      arrRps = [
+        new Rps(1, "https://feelstory.com/gnu/nori/img/1_on.png", "가위"),
+        new Rps(2, "https://feelstory.com/gnu/nori/img/2_on.png", "바위"),
+        new Rps(3, "https://feelstory.com/gnu/nori/img/3_on.png", "보"),
+      ];
+
+      window.onload = function () {
+        let elMan = document.querySelector("#man");
+        let elCom = document.querySelector("#com");
+        let btnArea = document.querySelector("#btnArea");
+
+        //이벤트 위임
+        btnArea.onclick = function (e) {
+          let index = Number(e.target.dataset.type) - 1;
+          let man = arrRps[index];
+          let com = arrRps[getRand(0, 2)];
+
+          setBgImg(man, elMan);
+          setBgImg(com, elCom);
+          whoWin(man, com);
+        };
+
+        function setBgImg(obj, el) {
+          el.style.backgroundImage = `url(${obj.url})`;
+        }
+
+        function whoWin(man, com) {
+          let result = document.querySelector("#result");
+          let win = "무";
+          if (man.type == com.type) {
+            result.innerText = win;
+            result.style.color = "black";
+            return;
+          }
+          let temp = man.type + 1;
+          if (temp > 3) temp = 1;
+          if (temp == com.type) {
+            win = "패";
+            result.style.color = "red";
+          } else {
+            win = "승";
+            result.style.color = "blue";
+          }
+          result.innerText = win;
+        }
+      };
+
+      function getRand(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+    </script>
+  </head>
+  <body>
+    <div id="rps">
+      <div>
+        <div id="man"></div>
+        <div id="result"></div>
+        <div id="com"></div>
+      </div>
+      <div>
+        <div>사람</div>
+        <div></div>
+        <div>컴퓨터</div>
+      </div>
+      <div id="btnArea">
+        <!-- 사용자가 부여하는 속성 : dataset -->
+        <div data-type="1" data-name="가위"></div>
+        <div data-type="2" data-name="바위"></div>
+        <div data-type="3" data-set="보"></div>
+      </div>
+    </div>
+  </body>
+</html>

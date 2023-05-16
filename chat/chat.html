@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 자동으로 생성 -->
+    <style>
+      #cha {
+        width: 50%;
+        height: 60%;
+        border-radius: 5%;
+        background-color: hsla(66, 75%, 45%, 0.882);
+        border: 5px solid #2f9440;
+        font-size: 15px;
+      }
+      #text {
+        outline: 5px #1b703c;
+        margin-top: 300px;
+        margin-left: 12%;
+        margin-bottom: 10px;
+      }
+    </style>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      window.onload = function () {
+        let socket = io.connect(); //소켓 서버 연결
+
+        let display = document.querySelector("#display");
+
+        socket.on("echo", function (data) {
+          let li = `<li>${data.uname}: ${data.msg} ${data.now}</li>`;
+          display.insertAdjacentHTML("beforeend", li);
+        });
+
+        let button = document.querySelector("button");
+        let uname = document.querySelector("#uname");
+        let msg = document.querySelector("#msg");
+        button.onclick = function () {
+          //emit은 이벤트 발동
+          let message = {
+            uname: uname.value,
+            msg: msg.value,
+            now: new Date().toUTCString(),
+          };
+
+          socket.emit("send", message);
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <h1>안녕!!!</h1>
+    <div id="cha">
+      <ul id="display"></ul>
+      <div id="text">
+        <input
+          type="text"
+          id="uname"
+          style="background-color: darkorange"
+          placeholder="name"
+        />
+        <input
+          type="text"
+          id="msg"
+          style="background-color: rgb(72, 255, 0)"
+          placeholder="message"
+        />
+
+        <button style="background-color: rgb(241, 243, 142)">전송</button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<script>
+  let id1 = Symbol("id");
+  let id2 = Symbol("id");
+  console.log(id1);
+  console.log(id2);
+  console.log(id1 == id2);
+  console.log(id1 === id2);
+  let obj = {
+    id1: "test",
+    id2: 12,
+  };
+  console.log(obj.id1);
+  // console.log(obj[id1]); //undefined
+  let arr = [];
+  arr[id2] = 100;
+  console.log(arr[id2]);
+
+  console.dir(window);
+</script>

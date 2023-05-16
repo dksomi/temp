@@ -1,0 +1,159 @@
+<html>
+  <head>
+    <style>
+      #wrap {
+        width: 960px;
+        border: 1px solid;
+        margin: 0 auto;
+      }
+      #wrap > div {
+        width: 100%;
+      }
+      #wrap > div::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      #wrap > div > div {
+        float: left;
+        height: 250px;
+        border: 1px solid;
+        width: calc((100% - 6px) / 3);
+        cursor: pointer;
+      }
+      #wrap > div:nth-child(2) > div {
+        height: 50px;
+        border: none;
+        text-align: center;
+        font-weight: bold;
+      }
+      #wrap > div:first-child > div {
+        border: none;
+      }
+      #wrap > div:last-child > div:first-child {
+        background-image: url("https://feelstory.com/gnu/nori/img/1_on.png");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      #wrap > div:last-child > div:nth-child(2) {
+        background-image: url("https://feelstory.com/gnu/nori/img/2_on.png");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      #wrap > div:last-child > div:last-child {
+        background-image: url("https://feelstory.com/gnu/nori/img/3_on.png");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      #man,
+      #com {
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      #man {
+        transform: rotate(90deg) scaleX(-1);
+      }
+      #com {
+        transform: rotate(-90deg);
+      }
+      #win {
+        text-align: center;
+        line-height: 250px;
+        font-size: 100px;
+      }
+    </style>
+    <script>
+      let elMan = (elCom = elWin = btnArea = null);
+      let arrRps = [];
+      function Rps(type, url, name) {
+        this.name = name;
+        this.type = type;
+        this.url = url;
+      }
+
+      arrRps.push(
+        new Rps(1, "https://feelstory.com/gnu/nori/img/1_on.png", "가위")
+      );
+      arrRps.push(
+        new Rps(2, "https://feelstory.com/gnu/nori/img/2_on.png", "바위")
+      );
+      arrRps.push(
+        new Rps(3, "https://feelstory.com/gnu/nori/img/3_on.png", "보")
+      );
+
+      window.onload = function () {
+        elMan = document.querySelector("#man");
+        elCom = document.querySelector("#com");
+        elWin = document.querySelector("#Win");
+        btnArea = document.querySelector("#btnArea");
+
+        btnArea.onclick = function (e) {
+          whoWin(e.target.dataset.type);
+        };
+      };
+
+      function whoWin(man) {
+        let manRps = arrRps[man - 1];
+        let comRps = arrRps[setComValue() - 1];
+        setBgImg(elMan, manRps.url);
+        setBgImg(elCom, comRps.url);
+
+        let win = isWin(manRps.type, comRps.type);
+        let txtWin = (txtColor = "");
+        switch (win) {
+          case -1:
+            txtColor = "blue";
+            txtWin = "패";
+            break;
+          case 0:
+            txtColor = "black";
+            txtWin = "무";
+            break;
+          case 1:
+            txtColor = "red";
+            txtWin = "승";
+            break;
+        }
+        elWin.style.color = txtColor;
+        elWin.innerText = txtWin;
+      }
+
+      function isWin(man, com) {
+        if (man == com) return 0;
+        let temp = man + 1 > 3 ? 1 : man + 1;
+        return temp == com ? -1 : 1;
+      }
+
+      function setBgImg(el, url) {
+        el.style.backgroundImage = "url(" + url + ")";
+      }
+
+      function setComValue() {
+        return getRndInteger(1, 3);
+      }
+
+      function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+    </script>
+  </head>
+  <body>
+    <div id="wrap">
+      <div>
+        <div id="man"></div>
+        <div id="win"></div>
+        <div id="com"></div>
+      </div>
+      <div>
+        <div>사람</div>
+        <div></div>
+        <div>컴퓨터</div>
+      </div>
+      <div id="btnArea">
+        <div data-type="1"></div>
+        <div data-type="2"></div>
+        <div data-type="3"></div>
+      </div>
+    </div>
+  </body>
+</html>

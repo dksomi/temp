@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>가위바위보</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      #gamebox {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 520px;
+        margin: 0 auto;
+      }
+      .view {
+        height: 200px;
+      }
+      #coins {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 100px;
+      }
+      .coin {
+        height: 40px;
+        width: 80px;
+        font-weight: 700;
+      }
+      .coin[onclick="reset()"] {
+        background-color: black;
+        color: white;
+      }
+      .coin:active {
+        background-color: red;
+      }
+      .gawi {
+        position: absolute;
+        clip: rect(0px, 160px, 180px, 0px);
+      }
+      .bawi {
+        position: absolute;
+        clip: rect(0px, 337px, 180px, 160px);
+      }
+      .bo {
+        position: absolute;
+        clip: rect(0px, 525px, 180px, 341px);
+      }
+      #judgment {
+        height: 110px;
+        background-color: black;
+
+        font-size: 600;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+      #judgment p {
+        display: flex;
+        justify-content: center;
+        color: white;
+        width: 25%;
+        height: 100%;
+        align-items: center;
+      }
+
+      .red {
+        background-color: red !important;
+      }
+      .blue {
+        background-color: blue !important;
+      }
+      .yellow {
+        background-color: yellow !important;
+        color: #000 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gamebox">
+      <h3>cpu</h3>
+      <div id="cpu" class="view">
+        <img
+          id="hand"
+          class="gawi"
+          src="https://cdn.seniortimes.kr/news/photo/202301/3002806_28762_5741.png"
+        />
+      </div>
+      <h3>human</h3>
+      <div id="human" class="view">
+        <img
+          id="myhand"
+          class="gawi"
+          src="https://cdn.seniortimes.kr/news/photo/202301/3002806_28762_5741.png"
+        />
+      </div>
+
+      <div id="judgment"></div>
+      <div id="coins">
+        <button class="coin" onclick="cpu(0)">가위</button>
+        <button class="coin" onclick="cpu(1)">바위</button>
+        <button class="coin" onclick="cpu(2)">보</button>
+        <button class="coin" onclick="reset()">재설정</button>"
+      </div>
+    </div>
+    <script>
+      let ready = "<p >준비!!!</p>";
+      const score = {
+        winNum: 0,
+        loseNum: 0,
+        drawNum: 0,
+      };
+      show(ready, score);
+
+      function cpu(human) {
+        let cpu = document.querySelector("#cpu");
+        let hand = document.querySelector("#hand");
+        let myhand = document.querySelector("#myhand");
+        let com = Math.floor(Math.random() * 3);
+
+        if (com == 0) {
+          hand.className = "gawi"; //가위
+        } else if (com == 1) {
+          hand.className = "bawi"; //바위
+        } else if (com == 2) {
+          hand.className = "bo"; //보
+        }
+
+        if (human == 0) {
+          myhand.className = "gawi"; //가위
+        } else if (human == 1) {
+          myhand.className = "bawi"; //바위
+        } else if (human == 2) {
+          myhand.className = "bo"; //보
+        }
+        console.log(com);
+        setTimeout(Judgment(human, com), 5000);
+      }
+      const win = "<p class='blue'>이김</p>";
+      const lose = "<p class='red'>졌다</p>";
+      const draw = "<p class='yellow'>비김</p>";
+
+      function Judgment(human, cpu) {
+        const judg = document.querySelector("#judgment");
+
+        if (human == cpu) {
+          //alert("비김");
+          score.drawNum++;
+          show(draw, score);
+        } else if (
+          (human == 0 && cpu == 1) ||
+          (human == 2 && cpu == 0) ||
+          (human == 1 && cpu == 2)
+        ) {
+          score.loseNum++;
+          show(lose, score);
+        } else if (
+          (human == 1 && cpu == 0) ||
+          (human == 0 && cpu == 2) ||
+          (human == 2 && cpu == 1)
+        ) {
+          score.winNum++;
+          show(win, score);
+        }
+      }
+
+      function show(result, score) {
+        const judg = document.querySelector("#judgment");
+
+        judg.innerHTML =
+          result +
+          "<p>승리횟수:" +
+          score.winNum +
+          "</p>" +
+          "<p> 패배횟수:" +
+          score.loseNum +
+          "</p>" +
+          "<p> 비긴횟수:" +
+          score.drawNum +
+          "</p>";
+      }
+      function reset() {
+        score.winNum = 0;
+        score.loseNum = 0;
+        score.drawNum = 0;
+        show(ready, score);
+        hand.className = "gawi";
+        myhand.className = "gawi";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <script>
+      //가위/바위/보
+      // 사람 vs 컴퓨터
+      // 사람 값을 입력(가/바/보)
+      // 컴퓨터는 래덤으로 (가/바/보)
+      // 사람 값이랑 컴값을 비교
+      // 비교값을 보여줌
+
+      //가위(1), 바위(2), 보(3)
+      function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //최댓값도 포함, 최솟값도 포함
+      }
+
+      // You vs Com
+      let yourChoice = readYourChoice();
+      let comChoice = getRandomIntInclusive(1, 3);
+      if (yourChoice) {
+        battleWithComputer(yourChoice, comChoice);
+      }
+
+      function readYourChoice() {
+        let you = prompt("가위(1) 바위(2) 보(3)!");
+        if (!isNaN(+you)) {
+          return +you;
+        } else if (you == undefined || you == "") {
+          return 0;
+        } else {
+          alert("1 ~ 3 사이의 숫자를 입력하세요");
+          readYourChoice();
+        }
+      }
+
+      function convertStr(n) {
+        switch (n) {
+          case 1:
+            return "가위";
+          case 2:
+            return "바위";
+          case 3:
+            return "보";
+        }
+      }
+
+      function battleWithComputer(choice, computer) {
+        let myStr = convertStr(choice);
+        let comStr = convertStr(computer);
+        console.log(choice);
+        console.log(computer);
+        if (choice == computer) {
+          alert(`무승부. (You:${myStr}, Com:${comStr})`);
+        } else if (computer - choice == 1 || computer - choice == -2) {
+          alert(`당신의 패배. (You:${myStr}, Com:${comStr})`);
+        } else if (choice - computer == 1 || choice - computer == -2) {
+          alert(`당신의 승리! (You:${myStr}, Com:${comStr})`);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      <button type="button" onclick="play(1)">
+        <img src="images/가위.png" alt="" />
+      </button>
+      <button type="button" onclick="play(2)">
+        <img src="images/바위.png" alt="" />
+      </button>
+      <button type="button" onclick="play(3)">
+        <img src="images/보.png" alt="" />
+      </button>
+    </div>
+    <div>
+      <button type="button" onclick="setComState(1)">
+        <img src="images/가위.png" alt="" />
+      </button>
+      <button type="button" onclick="setComState(2)">
+        <img src="images/바위.png" alt="" />
+      </button>
+      <button type="button" onclick="setComState(3)">
+        <img src="images/보.png" alt="" />
+      </button>
+    </div>
+  </body>
+</html>

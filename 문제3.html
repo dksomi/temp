@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body > div {
+        /* height: 50px; */
+        border: 1px solid;
+      }
+      /* body > div:first-child::after {
+      clear: both;
+      display: table;
+      content: "";
+    } */
+      body > div:first-child {
+        overflow: hidden;
+      }
+      body > div > div {
+        height: 50px;
+        width: 50%;
+        background-color: red;
+        float: left;
+      }
+      body > div > div:nth-child(2) {
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 자식들을 하나의 부모로 감싸준다. -->
+    <!-- float -->
+    <!-- 자식이 float이면 부모에게 clear를 준다 -->
+    <div>
+      <div></div>
+      <div></div>
+    </div>
+    <div></div>
+    <div></div>
+  </body>
+</html>

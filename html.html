@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div#menu {
+        top: 0;
+        position: sticky;
+      }
+      div[id^="a"] {
+        height: 500px;
+        border-top: 1px solid;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="menu">
+      <a href="#a1">a1</a> <a href="#a2">a2</a> <a href="#a3">a3</a>
+      <a href="#a4">a4</a> <a href="#a5">a5</a> <a href="#a6">a6</a>
+    </div>
+    <div>
+      <div id="a1"></div>
+      <div id="a2"></div>
+      <div id="a3"></div>
+      <div id="a4"></div>
+      <div id="a5"></div>
+      <div id="a6"></div>
+    </div>
+  </body>
+</html>
